@@ -7,10 +7,11 @@
     <title>Movie App</title>
     <link rel="stylesheet" href="/css/main.css">
     @livewireStyles
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.min.js" defer></script>
 </head>
 <body class="font-sans bg-gray-900 text-white">
     <nav class="border-b border-gray-800">
-        <div class="container flex flex-col md:flex-row  mx-auto  px-4 items-center justify-between px-4 py-6">
+        <div class="container flex flex-col md:flex-row  mx-auto  px-4 items-center justify-between  py-6">
             <ul class="flex flex-col md:flex-row items-center">
                 <li>
                     <a href="{{ route('movies.index') }}">
