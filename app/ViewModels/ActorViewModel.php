@@ -24,7 +24,7 @@ class ActorViewModel extends ViewModel
             'profile_path'=>$this->actor['profile_path']
                 ?
                 'https://image.tmdb.org/t/p/w300/'.$this->actor['profile_path'] : 'https://ui-avatars.com/api/?size=300&name='.$this->actor['name'],
-            ])->dump();
+            ]);
     }
 
     public function social()
@@ -34,7 +34,7 @@ class ActorViewModel extends ViewModel
                 'facebook'=>$this->social['facebook_id'] ? 'https://facebook.com/'.$this->social['facebook_id'] : null,
                 'instagram'=>$this->social['instagram_id'] ? 'https://instagram.com/'.$this->social['instagram_id'] : null,
 
-        ])->dump();
+        ]);
 
     }
 
@@ -43,14 +43,25 @@ class ActorViewModel extends ViewModel
         # code...
         $castMovies = collect($this->credits)->get('cast');
 
-        return collect($castMovies)->where('media_type','movie')->sortByDesc('popularity')->take(5)
+        return collect($castMovies)->sortByDesc('popularity')->take(5)
         ->map(function($movie){
+            if(isset($movie['title']))
+            {
+                $t = $movie['title'];
+            }elseif(isset($movie['name'])){
+                  $t = $movie['name'];
+            }else
+            {
+                $t = 'Untitled';
+            }
+
             return collect($movie)->merge([
                 'poster_path' => $movie['poster_path'] ? 'https://image.tmdb.org/t/p/w185/'.$movie['poster_path'] : 'https://via.placeholder.com/185x278',
-                'title'=>isset($movie['title']) ? $movie['title'] : 'Untitled'
+                'title'=> $t,
+                'linkToPage'=>$movie['media_type' ]=== 'movie' ?route('movies.show',$movie['id']):route('tv.show',$movie['id'])
             ]);
         })
-        ->dump();
+        ;
     }
     public function credits()
     {
@@ -88,7 +99,6 @@ class ActorViewModel extends ViewModel
                 'title'=>$t,
                 'character'=> isset($movie['character'])? $movie['character']:'',
             ]);
-        })->sortByDesc('release_date')
-        ->dump();
+        })->sortByDesc('release_date');
     }
 }
