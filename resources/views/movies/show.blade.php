@@ -145,7 +145,7 @@
                 <div
                 style="background-color: rgba(0, 0, 0, .5);"
                 class="fixed top-0 left-0 w-full h-full flex items-center shadow-lg overflow-y-auto"
-                x-show.transition.duration.500ms="isOpen"
+                x-show.transition.duration.600ms="isOpen"
                 >
                 <div class="container mx-auto lg:px-32 rounded-lg overflow-y-auto">
                     <div class="bg-gray-900 rounded">
